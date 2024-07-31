@@ -1,0 +1,2 @@
+#include "simulation_genie_icarus_numi_volDetEnclosure_tpc.fcl"
+physics.producers.generator.FluxCopyMethod: "IFDH"
