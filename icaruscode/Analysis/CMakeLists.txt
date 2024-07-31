@@ -53,6 +53,20 @@ set_property(SOURCE ThroughgoingmuonAnalyzer_module.cc APPEND PROPERTY COMPILE_D
 cet_build_plugin(TrackHitAna art::module LIBRARIES ${MODULE_LIBRARIES})
 cet_build_plugin(WireAna art::module LIBRARIES ${MODULE_LIBRARIES})
 
+
+cet_build_plugin(NuMIXSecTriggerEfficiencyStudy art::module
+  LIBRARIES
+  ${MODULE_LIBRARIES}
+  larcorealg::GeoAlgo
+)
+
+cet_build_plugin(NuMIXSecGenFilter art::module
+  LIBRARIES
+  ${MODULE_LIBRARIES}
+)
+
+
+
 #install_headers()
 install_fhicl()
 install_source()

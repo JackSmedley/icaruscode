@@ -1,0 +1,95 @@
+physics: {
+   end_paths: [
+      "analysis"
+   ]
+   analyzers: {
+      NuMIXSecTriggerEfficiencyStudyModule: {
+
+         module_type: NuMIXSecTriggerEfficiencyStudy
+
+         MCTruthLabel: "generator"
+         MCParticleLabel: "largeant"
+         TriggerLabel: "emuTrigger"
+
+         DoDebug: false
+         SelectSignal: false
+
+      }
+   }
+   analysis: [
+     NuMIXSecTriggerEfficiencyStudyModule
+   ]
+}
+process_name: "NuMIXSecTriggerEfficiencyStudyModule"
+
+services: {
+
+   ParticleInventoryService: {
+      ParticleInventory: {
+         EveIdCalculator: "EmEveIdCalculator"
+         G4ModuleLabel: "largeant"
+      }
+   }
+
+   ExptGeoHelperInterface: {
+      Mapper: {
+         WirelessChannels: {
+            CollectionEvenPostChannels: 96
+            CollectionEvenPreChannels: 64
+            CollectionOddPostChannels: 64
+            CollectionOddPreChannels: 96
+            FirstInductionPostChannels: 96
+            FirstInductionPreChannels: 0
+            SecondInductionEvenPostChannels: 64
+            SecondInductionEvenPreChannels: 96
+            SecondInductionOddPostChannels: 96
+            SecondInductionOddPreChannels: 64
+         }
+         tool_type: "ICARUSsplitInductionChannelMapSetupTool"
+      }
+      service_provider: "IcarusGeometryHelper"
+   }
+
+   Geometry: {
+      ChannelMapping: {
+         WirelessChannels: {
+            CollectionEvenPostChannels: 96
+            CollectionEvenPreChannels: 64
+            CollectionOddPostChannels: 64
+            CollectionOddPreChannels: 96
+            FirstInductionPostChannels: 96
+            FirstInductionPreChannels: 0
+            SecondInductionEvenPostChannels: 64
+            SecondInductionEvenPreChannels: 96
+            SecondInductionOddPostChannels: 96
+            SecondInductionOddPreChannels: 64
+         }
+         tool_type: "ICARUSsplitInductionChannelMapSetupTool"
+      }
+      DisableWiresInG4: true
+      GDML: "icarus_complete_20220518_overburden.gdml"
+      Name: "icarus_v4"
+      ROOT: "icarus_complete_20220518_overburden.gdml"
+      SurfaceY: 690
+   }
+
+   TFileService: {
+      fileName: "output_TrigEffTree.root"
+   }
+
+   message: {
+      destinations: {
+         STDCOUT: {
+            categories: {
+               default: {
+                  limit: -1
+                  reportEvery: 1
+               }
+
+            }
+            threshold: "WARNING"
+            type: "cout"
+         }
+      }
+   }
+}

@@ -1,0 +1,39 @@
+process_name: NuMIGenFilter
+
+physics: {
+  
+  filters: {
+
+    NuMIXsecGenFilterCC1muNp0pi: {
+
+      module_type: "NuMIXSecGenFilter"
+
+      MCTruthLabel: "generator"
+      SelectionMode: 0
+      DoDebug: false
+
+    }
+    
+  } # filters
+  
+  filter: [ NuMIXsecGenFilterCC1muNp0pi ]
+
+  stream: [ rootoutput ]
+
+  trigger_paths: [ filter ]
+  end_paths:     [ stream ]
+  
+} # physics
+
+outputs: {
+   rootoutput: {
+      SelectEvents: [
+         "filter"
+      ]
+      compressionLevel: 1
+      dataTier: "simulated"
+      fileName: "%ifb_%tc-%p.root"
+      module_type: "RootOutput"
+      saveMemoryObjectThreshold: 0
+   }
+}
