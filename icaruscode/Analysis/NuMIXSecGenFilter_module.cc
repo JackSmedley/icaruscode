@@ -152,7 +152,7 @@ bool ana::NuMIXSecGenFilter::filter(art::Event& e)
     if(fDoDebug) std::cout << "  - Number of particles = " << NParticles << std::endl;
 
 
-    unsigned int nMu(0), nP(0), nPi(0);
+    unsigned int nMu(0), nP(0), nPi(0), nJackP(0);
     unsigned int genieNPhotons(0), genieNMesons(0), genieNBaryonsAndPi0(0);
     double maxMomentumMuon = -1.;
     double maxMomentumP = -1.;
@@ -189,6 +189,7 @@ bool ana::NuMIXSecGenFilter::filter(art::Event& e)
       }
       if ( abs(this_ptl_pdg) == 2212 ) {
         nP+=1;
+        if ( momentum > .35 ) nJackP++;
         if ( momentum > maxMomentumP ) {
           maxMomentumP = momentum;
           passProtonPCut = (momentum > 0.4 && momentum < 1.);
@@ -231,6 +232,12 @@ bool ana::NuMIXSecGenFilter::filter(art::Event& e)
     bool IsNCEnergeticPion = 
           IsNC &&
           maxMomentumChargePion>0.190;
+    bool Is1mu2p0pi =
+          abs(NuPDG)==14 &&
+          IsCC &&
+          nMu==1 && nJackP>1 && nPi==0 && genieNPhotons==0 && genieNMesons==0 && genieNBaryonsAndPi0==0 &&
+          passMuonPCut &&
+          maxMomentumP<2.;
 
     if(fDoDebug){
       printf("  ====> Summary\n");
@@ -279,6 +286,25 @@ bool ana::NuMIXSecGenFilter::filter(art::Event& e)
       if(Is1muNpi){
         PassSelection = true;
         if(fDoDebug) std::cout << "====> Is1muNpi found" << std::endl;
+      }
+    }
+
+    // Is1mu>1p0pi
+    else if(fSelectionMode==5){
+      if(Is1mu2p0pi){
+        PassSelection = true;
+        if(fDoDebug) std::cout << "====> Is1mu>1p0pi found" << std::endl;
+      }
+    }
+
+    // CC 1muNp0pi and/or 1mu>1p0pi (BruceJaesung and/or Jack signal)
+    else if(fSelectionMode==6){
+      if(Is1mu2p0pi || Is1muNp0pi){
+        PassSelection = true;
+//        if(fDoDebug) {
+          if ( Is1mu2p0pi ) std::cout << "====> CC 1mu>1p0pi found" << std::endl;
+          if ( Is1muNp0pi ) std::cout << "====> CC 1muNp0pi found" << std::endl;
+//        }
       }
     }
 
