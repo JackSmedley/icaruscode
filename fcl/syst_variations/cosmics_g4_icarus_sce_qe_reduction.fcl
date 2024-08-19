@@ -1,0 +1,3 @@
+#include "cosmics_g4_icarus_sce.fcl"
+
+services.LArPropertiesService.ScintPreScale: 0.04

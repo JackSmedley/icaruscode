@@ -1,0 +1,4 @@
+#include "detsim_2d_icarus_fitFR.fcl"
+
+services.LArPropertiesService.ScintPreScale: 0.04
+physics.producers.opdaq.QE: 0.04
