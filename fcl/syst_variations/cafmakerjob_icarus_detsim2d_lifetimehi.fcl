@@ -1,0 +1,9 @@
+#include "cafmakerjob_icarus_detsim2d.fcl"
+
+#Replicating the changes made at the detsim lwvwl so the calo module run at the cafmaker make the correct adjustments
+#Electron lieftime variation based on "detsim_2d_icarus_refactored_variation_run2lifetimehi.fcl" found in newer releases but with the approproate gains for this release
+
+#Highest value of e- lifetime across both TPCs in Run 2 (9.2 ms in West cryostat) - Values provided by C. Farnese
+services.DetectorPropertiesService.Electronlifetime: 9200 
+physics.producers.daq.wcls_main.structs.lifetime: 9200
+
