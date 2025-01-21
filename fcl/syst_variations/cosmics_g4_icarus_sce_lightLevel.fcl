@@ -1,0 +1,9 @@
+#include "cosmics_g4_icarus_sce.fcl"
+
+#Light level tune consistent with https://github.com/SBNSoftware/icaruscode/pull/663 and https://github.com/SBNSoftware/icarusalg/pull/78
+#Note that our nominal MC release was before the light level tuning, so this replicates the tuning that went into place after
+#Paired with detsim_2d_icarus_fitFR_oldgain_lightLevel.fcl
+
+#Reduce PMT quantum efficiency
+services.LArPropertiesService.ScintPreScale: 0.073
+
